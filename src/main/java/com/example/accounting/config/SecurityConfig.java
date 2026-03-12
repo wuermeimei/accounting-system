@@ -32,7 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.IF_REQUIRED)
             .and()
             .authorizeRequests()
-                .antMatchers("/api/auth/**", "/h2-console/**", "/actuator/**").permitAll()
+                .antMatchers(
+                    "/api/auth/**",
+                    "/api/h2-console/**",
+                    "/api/actuator/**",
+                    "/api/swagger-ui.html",
+                    "/api/swagger-ui/**",
+                    "/api/v3/api-docs/**",
+                    "/api/webjars/**",
+                    "/api/swagger-resources/**"
+                ).permitAll()
                 .anyRequest().authenticated();
 
         // H2 Console 配置（仅在开发环境）
