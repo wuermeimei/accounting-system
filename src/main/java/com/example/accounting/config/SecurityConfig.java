@@ -33,14 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
                 .antMatchers(
-                    "/api/auth/**",
-                    "/api/h2-console/**",
-                    "/api/actuator/**",
-                    "/api/swagger-ui.html",
-                    "/api/swagger-ui/**",
-                    "/api/v3/api-docs/**",
-                    "/api/webjars/**",
-                    "/api/swagger-resources/**"
+                    "/auth/**",
+                    "/h2-console/**",
+                    "/actuator/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/webjars/**",
+                    "/swagger-resources/**"
                 ).permitAll()
                 .anyRequest().authenticated();
 
