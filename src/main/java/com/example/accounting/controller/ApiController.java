@@ -13,6 +13,7 @@ import com.example.accounting.service.StatisticsService;
 import com.example.accounting.service.UserService;
 import com.example.accounting.vo.RecordVO;
 import com.example.accounting.vo.StatisticVO;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +28,8 @@ import java.time.Year;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.accounting.util.SecurityUtils.getCurrentUserId;
 
 @RestController
 @RequestMapping
@@ -109,8 +112,6 @@ public class ApiController {
 
     @PutMapping("/records/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-            @Parameter(name = "id", description = "账单ID", required = true)
-    })
     public ResponseEntity<Map<String, Object>> updateRecord(
             @PathVariable Long id,
             @RequestBody RecordUpdateRequest request) {
@@ -125,7 +126,6 @@ public class ApiController {
 
     @DeleteMapping("/records/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-            @Parameter(name = "id", description = "账单ID", required = true)
     })
     public ResponseEntity<Map<String, Object>> deleteRecord(@PathVariable Long id) {
         Long userId = getCurrentUserId();
@@ -141,8 +141,6 @@ public class ApiController {
     @GetMapping("/statistics/summary")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
             parameters = {
-                    @Parameter(name = "startDate", description = "开始日期 (yyyy-MM-dd)，默认前30天"),
-                    @Parameter(name = "endDate", description = "结束日期 (yyyy-MM-dd)，默认今天")
             })
     public ResponseEntity<Map<String, BigDecimal>> getSummary(
             @RequestParam(required = false) LocalDate startDate,
@@ -166,11 +164,6 @@ public class ApiController {
 
     @GetMapping("/statistics/category")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-            parameters = {
-                    @Parameter(name = "type", description = "类型: INCOME或EXPENSE", required = true),
-                    @Parameter(name = "startDate", description = "开始日期，默认前30天"),
-                    @Parameter(name = "endDate", description = "结束日期，默认今天")
-            })
     public ResponseEntity<List<Map<String, Object>>> getCategoryStatistics(
             @RequestParam String type,
             @RequestParam(required = false) LocalDate startDate,
@@ -188,9 +181,6 @@ public class ApiController {
 
     @GetMapping("/statistics/monthly")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-            parameters = {
-                    @Parameter(name = "year", description = "年份，默认当前年份")
-            })
     public ResponseEntity<List<Map<String, Object>>> getMonthlyStatistics(
             @RequestParam(required = false) Integer year) {
 
