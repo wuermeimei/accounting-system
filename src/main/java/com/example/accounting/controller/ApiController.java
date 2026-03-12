@@ -13,7 +13,6 @@ import com.example.accounting.service.StatisticsService;
 import com.example.accounting.service.UserService;
 import com.example.accounting.vo.RecordVO;
 import com.example.accounting.vo.StatisticVO;
-import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,8 +27,6 @@ import java.time.Year;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.example.accounting.util.SecurityUtils.getCurrentUserId;
 
 @RestController
 @RequestMapping
@@ -126,7 +123,6 @@ public class ApiController {
 
     @DeleteMapping("/records/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    })
     public ResponseEntity<Map<String, Object>> deleteRecord(@PathVariable Long id) {
         Long userId = getCurrentUserId();
         boolean success = recordService.deleteRecord(userId, id);
@@ -140,8 +136,6 @@ public class ApiController {
     // ========== Statistics ==========
     @GetMapping("/statistics/summary")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-            parameters = {
-            })
     public ResponseEntity<Map<String, BigDecimal>> getSummary(
             @RequestParam(required = false) LocalDate startDate,
             @RequestParam(required = false) LocalDate endDate) {
