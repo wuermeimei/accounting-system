@@ -19,12 +19,12 @@ public class OpenApiConfig {
                         .description("基于 Spring Boot 2.7.x 的记账系统 REST API 文档")
                         .contact(new Contact()
                                 .name("Accounting System")
-                                .email="contact@example.com"
-                                .url="https://github.com/wuermeimei/accounting-system"
+                                .email("contact@example.com")
+                                .url("https://github.com/wuermeimei/accounting-system")
                         )
                         .license(new License()
                                 .name("MIT License")
-                                .url("https://opensource.org/licenses/MIT"
+                                .url("https://opensource.org/licenses/MIT")
                         )
                 );
     }
