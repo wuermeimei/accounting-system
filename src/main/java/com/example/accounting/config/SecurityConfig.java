@@ -1,9 +1,8 @@
 package com.example.accounting.config;
 
-import com.example.accounting.security.UserDetailsServiceImpl;
 import com.example.accounting.security.JwtAuthenticationFilter;
+import com.example.accounting.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -33,18 +32,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
                 .antMatchers(
-                    "/auth/**",
-                    "/h2-console/**",
-                    "/actuator/**",
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-resources/**",
                     "/swagger-resources",
                     "/webjars/**",
-                    "/configuration/**",
-                    "/error"
+                    "/configuration/**"
                 ).permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/error").permitAll()
                 .anyRequest().authenticated();
 
         // H2 Console 配置（仅在开发环境）
@@ -70,5 +69,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+}
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService())
+            .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public org.springframework.security.authentication.AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public org.springframework.security.core.userdetails.UserDetailsService customUserDetailsService() {
+        return username -> null; // 实际注入会由 Spring 管理
     }
 }
