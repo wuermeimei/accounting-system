@@ -35,11 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     "/swagger-ui.html",
                     "/swagger-ui/**",
-                    "/v3/api-docs/**",
                     "/swagger-resources/**",
                     "/swagger-resources",
-                    "/webjars/**",
-                    "/configuration/**"
+                    "/v2/api-docs/**",
+                    "/v3/api-docs/**",
+                    "/webjars/**"
                 ).permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
@@ -70,28 +70,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-}
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService())
-            .passwordEncoder(passwordEncoder());
-    }
-
-    @Bean
-    @Override
-    public org.springframework.security.authentication.AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public org.springframework.security.core.userdetails.UserDetailsService customUserDetailsService() {
-        return username -> null; // 实际注入会由 Spring 管理
     }
 }
