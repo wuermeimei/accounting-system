@@ -1,0 +1,256 @@
+[
+  {
+    "info": {
+      "name": "记账系统 API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "1. 用户认证",
+        "item": [
+          {
+            "name": "注册",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"test123\",\n  \"confirmPassword\": \"test123\",\n  \"email\": \"test@example.com\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/auth/register",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "auth", "register"]
+              }
+            }
+          },
+          {
+            "name": "登录",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/auth/login",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "auth", "login"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "2. 账单管理",
+        "item": [
+          {
+            "name": "创建账单",
+            "request": {
+              "method": "POST",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"amount\": 100.50,\n  \"type\": \"EXPENSE\",\n  \"category\": \"餐饮\",\n  \"description\": \"午餐\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/records",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "records"]
+              }
+            }
+          },
+          {
+            "name": "查询账单",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/records?type=EXPENSE",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "records"]
+              }
+            }
+          },
+          {
+            "name": "更新账单",
+            "request": {
+              "method": "PUT",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"amount\": 150.00,\n  \"type\": \"EXPENSE\",\n  \"category\": \"交通\",\n  \"description\": \"打车\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/records/1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "records", "1"]
+              }
+            }
+          },
+          {
+            "name": "删除账单",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/records/1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "records", "1"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "3. 统计分析",
+        "item": [
+          {
+            "name": "汇总统计",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/statistics/summary?startDate=2026-03-01&endDate=2026-03-12",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "statistics", "summary"],
+                "query": [
+                  {"key": "startDate", "value": "2026-03-01"},
+                  {"key": "endDate", "value": "2026-03-12"}
+                ]
+              }
+            }
+          },
+          {
+            "name": "按分类统计",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/statistics/category?type=EXPENSE&startDate=2026-03-01&endDate=2026-03-12",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "statistics", "category"],
+                "query": [
+                  {"key": "type", "value": "EXPENSE"},
+                  {"key": "startDate", "value": "2026-03-01"},
+                  {"key": "endDate", "value": "2026-03-12"}
+                ]
+              }
+            }
+          },
+          {
+            "name": "月度统计",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/statistics/monthly?year=2026",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "statistics", "monthly"],
+                "query": [
+                  {"key": "year", "value": "2026"}
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "4. 菜单",
+        "item": [
+          {
+            "name": "获取菜单树",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{token}}"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:8080/api/menus/tree",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "menus", "tree"]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

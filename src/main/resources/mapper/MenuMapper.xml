@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.accounting.mapper.MenuMapper">
+
+    <!-- 构建菜单树（根据用户权限） -->
+    <select id="selectMenuTreeByUserId" resultType="com.example.accounting.entity.Menu">
+        WITH RECURSIVE menu_tree AS (
+            -- 根节点
+            SELECT m.*
+            FROM menu m
+            INNER JOIN role_menu rm ON m.id = rm.menu_id
+            INNER JOIN user_role ur ON rm.role_id = ur.role_id
+            WHERE ur.user_id = #{userId}
+              AND m.parent_id = 0
+              AND m.deleted = 0
+              AND rm.deleted = 0
+              AND ur.deleted = 0
+
+            UNION ALL
+
+            -- 递归子节点
+            SELECT m.*
+            FROM menu m
+            INNER JOIN menu_tree mt ON m.parent_id = mt.id
+            WHERE m.deleted = 0
+        )
+        SELECT * FROM menu_tree
+        ORDER BY sort_order ASC
+    </select>
+
+    <!-- 查询所有菜单（用于管理） -->
+    <select id="selectAllMenus" resultType="com.example.accounting.entity.Menu">
+        SELECT * FROM menu
+        WHERE deleted = 0
+        ORDER BY parent_id ASC, sort_order ASC
+    </select>
+
+</mapper>
