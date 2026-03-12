@@ -62,3 +62,11 @@ jwt:
   secret: accounting-secret-key-change-in-production
   expiration: 86400000 # 24 hours in milliseconds
   token-prefix: "Bearer"
+
+# Swagger / OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

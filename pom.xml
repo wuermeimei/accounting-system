@@ -55,14 +55,26 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JWT (可选) -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jjwt.version}</version>
-        </dependency>
+         <!-- JWT (可选) -->
+         <dependency>
+             <groupId>io.jsonwebtoken</groupId>
+             <artifactId>jjwt</artifactId>
+             <version>${jjwt.version}</version>
+         </dependency>
 
-        <!-- Utilities -->
+         <!-- Swagger / OpenAPI 3 -->
+         <dependency>
+             <groupId>org.springdoc</groupId>
+             <artifactId>springdoc-openapi-ui</artifactId>
+             <version>1.7.0</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springdoc</groupId>
+             <artifactId>springdoc-openapi-common</artifactId>
+             <version>1.7.0</version>
+         </dependency>
+
+         <!-- Utilities -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
