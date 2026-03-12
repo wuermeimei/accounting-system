@@ -5,13 +5,13 @@
 
     <!-- 插入用户角色关联 -->
     <insert id="insertUserRole">
-        INSERT INTO user_role (user_id, role_id, create_time)
+        INSERT INTO user_roles (user_id, role_id, create_time)
         VALUES (#{userId}, #{roleId}, NOW())
     </insert>
 
     <!-- 删除用户的所有角色关联 -->
     <delete id="deleteUserRoles">
-        UPDATE user_role
+        UPDATE user_roles
         SET deleted = 1
         WHERE user_id = #{userId}
           AND deleted = 0

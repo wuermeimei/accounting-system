@@ -5,16 +5,23 @@
 
     <!-- 根据用户名查询用户 -->
     <select id="selectByUsername" resultType="com.example.accounting.entity.User">
-        SELECT * FROM user
+        SELECT * FROM users
         WHERE username = #{username}
           AND deleted = 0
         LIMIT 1
     </select>
 
+    <!-- 查询用户角色ID列表 -->
+    <select id="selectRoleIdsByUserId" resultType="long">
+        SELECT role_id FROM user_roles
+        WHERE user_id = #{userId}
+          AND deleted = 0
+    </select>
+
     <!-- 查询用户角色代码列表 -->
     <select id="selectRoleCodesByUserId" resultType="string">
-        SELECT r.code FROM role r
-        INNER JOIN user_role ur ON r.id = ur.role_id
+        SELECT r.code FROM roles r
+        INNER JOIN user_roles ur ON r.id = ur.role_id
         WHERE ur.user_id = #{userId}
           AND r.deleted = 0
           AND ur.deleted = 0

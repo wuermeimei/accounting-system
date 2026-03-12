@@ -5,7 +5,7 @@
 
     <!-- 查询角色菜单ID列表 -->
     <select id="selectMenuIdsByRoleId" resultType="long">
-        SELECT menu_id FROM role_menu
+        SELECT menu_id FROM role_menus
         WHERE role_id = #{roleId}
           AND deleted = 0
     </select>

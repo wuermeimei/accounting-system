@@ -6,7 +6,7 @@
     <!-- 统计指定类型的总金额 -->
     <select id="sumAmountByUserIdAndTypeAndDateRange" resultType="java.math.BigDecimal">
         SELECT COALESCE(SUM(amount), 0)
-        FROM record
+        FROM records
         WHERE user_id = #{userId}
           AND type = #{type}
           AND deleted = 0
@@ -18,7 +18,7 @@
         SELECT
             category,
             COALESCE(SUM(amount), 0) as total_amount
-        FROM record
+        FROM records
         WHERE user_id = #{userId}
           AND type = #{type}
           AND deleted = 0
@@ -32,7 +32,7 @@
         SELECT
             MONTH(create_time) as month,
             COALESCE(SUM(amount), 0) as total_amount
-        FROM record
+        FROM records
         WHERE user_id = #{userId}
           AND deleted = 0
           AND YEAR(create_time) = #{year}

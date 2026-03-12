@@ -5,7 +5,7 @@
 
     <!-- 删除角色的所有菜单关联 -->
     <delete id="deleteRoleMenus">
-        UPDATE role_menu
+        UPDATE role_menus
         SET deleted = 1
         WHERE role_id = #{roleId}
           AND deleted = 0
