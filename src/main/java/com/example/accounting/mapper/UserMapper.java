@@ -14,8 +14,4 @@ public interface UserMapper extends BaseMapper<User> {
     List<Long> selectRoleIdsByUserId(@Param("userId") Long userId);
 
     List<String> selectRoleCodesByUserId(@Param("userId") Long userId);
-
-    void insertUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
-
-    void deleteUserRoles(@Param("userId") Long userId);
 }

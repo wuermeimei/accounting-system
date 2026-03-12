@@ -10,8 +10,4 @@ import java.util.List;
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
     List<Long> selectMenuIdsByRoleId(Long roleId);
-
-    void insertRoleMenu(@Param("roleId") Long roleId, @Param("menuId") Long menuId);
-
-    void deleteRoleMenus(@Param("roleId") Long roleId);
 }
