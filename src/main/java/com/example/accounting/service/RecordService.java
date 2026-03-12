@@ -26,10 +26,20 @@ public class RecordService {
 
     public Long createRecord(Long userId, RecordCreateRequest request) {
         Record record = new Record();
-        BeanUtils.copyProperties(request, record);
+        record.setAmount(request.getAmount());
+        record.setType(request.getType());
+        record.setCategory(request.getCategory());
+        record.setDescription(request.getDescription());
         record.setUserId(userId);
-        record.setCreateTime(LocalDateTime.now());
+
+        // 处理创建时间
+        if (request.getCreateDate() != null) {
+            record.setCreateTime(request.getCreateDate().atStartOfDay());
+        } else {
+            record.setCreateTime(LocalDateTime.now());
+        }
         record.setUpdateTime(LocalDateTime.now());
+
         recordMapper.insert(record);
         return record.getId();
     }
