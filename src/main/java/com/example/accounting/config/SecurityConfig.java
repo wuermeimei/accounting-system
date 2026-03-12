@@ -1,11 +1,9 @@
 package com.example.accounting.config;
 
-import com.example.accounting.security.CustomUserDetailsService;
+import com.example.accounting.security.UserDetailsServiceImpl;
 import com.example.accounting.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,13 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService)
+        auth.userDetailsService(userDetailsServiceImpl)
             .passwordEncoder(passwordEncoder());
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
+    public org.springframework.security.authentication.AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
