@@ -11,13 +11,6 @@
         LIMIT 1
     </select>
 
-    <!-- 查询用户角色ID列表 -->
-    <select id="selectRoleIdsByUserId" resultType="long">
-        SELECT role_id FROM user_role
-        WHERE user_id = #{userId}
-          AND deleted = 0
-    </select>
-
     <!-- 查询用户角色代码列表 -->
     <select id="selectRoleCodesByUserId" resultType="string">
         SELECT r.code FROM role r
@@ -26,19 +19,5 @@
           AND r.deleted = 0
           AND ur.deleted = 0
     </select>
-
-    <!-- 插入用户角色关联 -->
-    <insert id="insertUserRole">
-        INSERT INTO user_role (user_id, role_id, create_time)
-        VALUES (#{userId}, #{roleId}, NOW())
-    </insert>
-
-    <!-- 删除用户的所有角色关联 -->
-    <delete id="deleteUserRoles">
-        UPDATE user_role
-        SET deleted = 1
-        WHERE user_id = #{userId}
-          AND deleted = 0
-    </delete>
 
 </mapper>
