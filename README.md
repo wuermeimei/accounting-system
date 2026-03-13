@@ -107,7 +107,7 @@ src/main/resources/
    ```
 
 3. **访问H2控制台** (可选，用于调试)
-   - URL: http://localhost:8080/h2-console
+   - URL: http://localhost:8080/api/h2-console
    - JDBC URL: `jdbc:h2:mem:accounting_db`
    - 用户名: `sa`
    - 密码: (留空)
