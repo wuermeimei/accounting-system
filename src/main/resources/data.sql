@@ -2,11 +2,11 @@
 
 -- 管理员用户 (密码: admin123, 已BCrypt加密)
 INSERT INTO users (username, password, email, enabled, create_time, update_time) VALUES
-('admin', '$2a$10$N.zmdr9k7UOCG3aZHwC6.u08k2qz6LhLbFF1q2bZVXh5FFjGLq5TK', 'admin@example.com', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('admin', '$2b$10$skkiDNo1wxHCDtYUG2ZSK.o8nUbr.HcgaCUe52IcVrNoWHEXry3WG', 'admin@example.com', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 普通用户 (密码: user123)
 INSERT INTO users (username, password, email, enabled, create_time, update_time) VALUES
-('user', '$2a$10$8.V0pH0H7V2jW2b7ZS.q.Ob4zPFJ8qEnM3aEWjNYp7EnFFwRhxFYm', 'user@example.com', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('user', '$2b$10$YOWPqWxilHrGMjZ6jtIWse3t0n0x0etfRgBnp90y5qi7vx1Jb/wUO', 'user@example.com', TRUE, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 角色
 INSERT INTO roles (name, code, description, create_time) VALUES

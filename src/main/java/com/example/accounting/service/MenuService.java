@@ -4,6 +4,7 @@ import com.example.accounting.entity.Menu;
 import com.example.accounting.mapper.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,11 +18,13 @@ public class MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getMenuTreeByUserId(Long userId) {
         List<Menu> menus = menuMapper.selectMenuTreeByUserId(userId);
         return buildTree(menus, 0L);
     }
 
+    @Transactional(readOnly = true)
     public List<Map<String, Object>> getAllMenus() {
         List<Menu> menus = menuMapper.selectAllMenus();
         return buildTree(menus, 0L);

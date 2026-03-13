@@ -18,11 +18,13 @@ public class UserService {
     @Autowired
     private UserRoleMapper userRoleMapper;
 
+    @Transactional(readOnly = true)
     public boolean existsByUsername(String username) {
         User user = userMapper.selectByUsername(username);
         return user != null && user.getDeleted() == 0;
     }
 
+    @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userMapper.selectByUsername(username);
     }

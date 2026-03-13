@@ -10,6 +10,7 @@ import com.example.accounting.vo.RecordVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class RecordService {
     @Autowired
     private RecordMapper recordMapper;
 
+    @Transactional
     public Long createRecord(Long userId, RecordCreateRequest request) {
         Record record = new Record();
         record.setAmount(request.getAmount());
@@ -44,6 +46,7 @@ public class RecordService {
         return record.getId();
     }
 
+    @Transactional(readOnly = true)
     public List<RecordVO> getRecords(Long userId, RecordQueryRequest request) {
         QueryWrapper<Record> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId)
@@ -69,6 +72,7 @@ public class RecordService {
         return records.stream().map(this::convertToVO).collect(Collectors.toList());
     }
 
+    @Transactional
     public boolean updateRecord(Long userId, Long recordId, RecordUpdateRequest request) {
         Record record = recordMapper.selectById(recordId);
         if (record == null || !record.getUserId().equals(userId) || record.getDeleted() == 1) {
@@ -80,6 +84,7 @@ public class RecordService {
         return recordMapper.updateById(record) > 0;
     }
 
+    @Transactional
     public boolean deleteRecord(Long userId, Long recordId) {
         Record record = recordMapper.selectById(recordId);
         if (record == null || !record.getUserId().equals(userId) || record.getDeleted() == 1) {
@@ -91,6 +96,7 @@ public class RecordService {
         return recordMapper.updateById(record) > 0;
     }
 
+    @Transactional(readOnly = true)
     public RecordVO getRecordById(Long userId, Long recordId) {
         Record record = recordMapper.selectById(recordId);
         if (record == null || !record.getUserId().equals(userId) || record.getDeleted() == 1) {

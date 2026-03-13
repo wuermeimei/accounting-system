@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthService {
@@ -39,6 +40,7 @@ public class AuthService {
         return jwtTokenProvider.generateToken(request.getUsername());
     }
 
+    @Transactional
     public void register(RegisterRequest request) {
         // 检查用户名是否已存在
         if (userService.existsByUsername(request.getUsername())) {
